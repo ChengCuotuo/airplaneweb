@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        #body{
+            position: absolute;
+            left: 300px;
+            width:450px;
+            height:500px;
+            background:url("resplane/image/background.png");
+            overflow: hidden;
+            border:solid 2px black;
+        }
+        #player{
+            position: absolute;
+            left: 450px;
+            top:380px;
+            width:100px;
+            height:120px;
+            background:url("resplane/image/player1.png");
+            overflow:hidden;
+        }
+    </style>
+    <script type="text/javascript" src="script/jquery-1.10.1.js"></script>
+    <script type="text/javascript">
+        //导入了jQuery用来获取节点，并赋予动画等
+        $(function () {
+            var $body = $('#body');
+            //获取背景的高度很宽度
+            var backhigh = $body.height();
+            var backwidth = $body.width();
+            //获取背景的位置
+            var backTop = $("#body")[0].getBoundingClientRect().top + $(window)['scrollTop']();
+            var backleft = $("#body")[0].getBoundingClientRect().left + $(window)['scrollLeft']();
+            //获取玩家的位置
+            var top  = $("#player")[0].getBoundingClientRect().top + $(window)['scrollTop']();
+            var left = $("#player")[0].getBoundingClientRect().left + $(window)['scrollLeft']();
+            //获取玩家飞机
+            var $player = $('#player');
+            //设置速度
+            var speed = 8;
+            //获取图片的高度和宽度
+            var high = $player.height();
+            var width = $player.width();
+
+            moveUp();
+            moveDown();
+            moveLeft();
+            moveRight();
+
+            //向上移动动画
+            function moveUp() {
+                $(window).keydown(function() {
+                    var x = event.keyCode;
+                    if (x == 87) {  // w
+                        //alert(topPos)
+                        if (top <= 20) {
+                            top = 20;
+                        } else {
+                            top -= speed;
+                            $player.animate({
+                                top: '-=8'
+                            }, 30);
+                        }
+                        console.log(top)
+                    }
+                });
+            }
+
+            function moveDown() {
+                $(window).keydown(function() {
+                    var x = event.keyCode;
+                    if (x == 83) {  // w
+                        //alert(topPos)
+                        if (top >= backhigh - high) {
+                            top = backhigh - high;
+                        } else {
+                            top += speed;
+                            $player.animate({
+                                top: '+=8'
+                            }, 30);
+                        }
+                        console.log(top)
+                    }
+                });
+            }
+
+            function moveLeft() {
+                $(window).keydown(function() {
+                    var x = event.keyCode;
+                    if (x == 65) {  // w
+                        //alert(topPos)
+                        if (left <= 300) {
+                           left = 300;
+                        } else {
+                            left -= speed;
+                            $player.animate({
+                                left: '-=8'
+                            }, 30);
+                        }
+                        console.log(left)
+                    }
+                });
+            }
+
+            function moveRight() {
+                $(window).keydown(function() {
+                    var x = event.keyCode;
+                    if (x == 68) {  // d
+                        //alert(topPos)
+                        if (left >= backleft + backwidth - width - 5) {
+                            left = backleft + backwidth - width - 5;
+                        } else {
+                            left += speed;
+                            $player.animate({
+                                left: '+=8'
+                            }, 30);
+                        }
+                        console.log(left)
+                    }
+                });
+            }
+        });
+
+    </script>
+</head>
+<body>
+    <div id="body"></div>
+    <div id="player"></div>
+</body>
+</html>
