@@ -44,14 +44,32 @@
             //获取图片的高度和宽度
             var high = $player.height();
             var width = $player.width();
+            //当前玩家的照片的下表
+            var index = 0;
 
-            moveUp();
-            moveDown();
-            moveLeft();
-            moveRight();
+            //设置动态对象，多张对象的照片在相同的时间间隔内交替的显示
+            changeImage($player);
 
+            //对当前对象调用上下左右的移动
+            moveUp($player);
+            moveDown($player);
+            moveLeft($player);
+            moveRight($player);
+
+            //产生动态的飞机
+            function changeImage($player) {
+                setInterval(function(){
+                    if (index == 1) {
+                        index = 2;
+                    } else {
+                        index = 1;
+                    }
+                    //修改背景图片
+                    $player.css("background-image","url(resplane/image/player" + index + ".png)");
+                }, 300);
+            }
             //向上移动动画
-            function moveUp() {
+            function moveUp($player) {
                 $(window).keydown(function() {
                     var x = event.keyCode;
                     if (x == 87) {  // w
@@ -69,7 +87,7 @@
                 });
             }
 
-            function moveDown() {
+            function moveDown($player) {
                 $(window).keydown(function() {
                     var x = event.keyCode;
                     if (x == 83) {  // w
@@ -87,7 +105,7 @@
                 });
             }
 
-            function moveLeft() {
+            function moveLeft($player) {
                 $(window).keydown(function() {
                     var x = event.keyCode;
                     if (x == 65) {  // w
@@ -105,7 +123,7 @@
                 });
             }
 
-            function moveRight() {
+            function moveRight($player) {
                 $(window).keydown(function() {
                     var x = event.keyCode;
                     if (x == 68) {  // d
